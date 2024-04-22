@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9752b0c8e144801967e6897679604b, type: 3}
+  m_Name: vHierarchy Data
+  m_EditorClassIdentifier: 
+  sceneDatasByGuid:
+    keys:
+    - 69cf100061930cb4ebd1b70b681c81ac
+    - 
+    values:
+    - goDatasByGlobalId:
+        keys:
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-644210880-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-519420028-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-137988605-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-1864995755-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-732419797-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-285394748-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-1417807598-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-324010814-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-329069509-0
+        - GlobalObjectId_V1-2-69cf100061930cb4ebd1b70b681c81ac-1965577996-0
+        values:
+        - iColor: 0
+          icon: EventSystem Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Canvas Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: LightProbes Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: LightProbes Icon
+      goDatasByInstanceId:
+        keys: 5c65000054650000226500009c65000068650000366500008c6500004065000044650000a065000062aafeff
+        values:
+        - iColor: 0
+          icon: EventSystem Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Canvas Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: LightProbes Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: Folder Icon
+        - iColor: 0
+          icon: LightProbes Icon
+        - iColor: 0
+          icon: 
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []
