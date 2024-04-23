@@ -15,12 +15,14 @@ public class CommandPromptTexts : MonoBehaviour
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text baseText;
     [SerializeField] TMP_Text userText;
+    [SerializeField] TMP_Text outputText;
+    [SerializeField] ScrollRect scrollRect;
 
     [Header("Caret")]
     [SerializeField] Image caret;
 
-    readonly string baseString = @"C:\Users\";
-    readonly string userString = "User"; // Will be replaced with the actual username.
+    const string baseString = @"C:\Users\";
+    const string userString = "User"; // Will be replaced with the actual username.
 
     void OnEnable()
     {
@@ -32,6 +34,14 @@ public class CommandPromptTexts : MonoBehaviour
 
         // Adjust the right offset of the user text
         userText.rectTransform.offsetMax = new (userText.text.Length * 10, userText.rectTransform.offsetMax.y);
+
+        scrollRect.content.offsetMin = new (scrollRect.content.offsetMin.x, -3000);
+
+        inputField.onValueChanged.AddListener
+        (_ =>
+        {
+            if (outputText.text.Length > 0) scrollRect.content.offsetMin = new (scrollRect.content.offsetMin.x, scrollRect.content.offsetMin.y - outputText.text.Length * 10);
+        });
     }
 
     void Update()

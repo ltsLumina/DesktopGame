@@ -1,5 +1,6 @@
 #region
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -10,6 +11,7 @@ public abstract class FileInfo : ScriptableObject
     [Header("General Info")]
     new public string name;
     public string extension;
+    public Texture2D icon;
 
     [TextArea(3, 10)]
     public string description;
@@ -27,16 +29,28 @@ public abstract class FileInfo : ScriptableObject
     [Delayed]
     public string dateAccessed = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-    [SerializeField] Texture2D icon;
-
-    public Image CreateSprite(Transform parent)
+    public Image CreateSprite(Transform parent, Transform position = default, Vector2 sizeDelta = default)
     {
+        // Delete the existing Editor sprite.
+        // The icon that is used in the editor. The actual icon is created at runtime.
+        Image editorIcon = parent.GetComponentsInChildren<Image>().FirstOrDefault(i => i.CompareTag("Editor"));
+
         var sprite = new GameObject($"{name} (Sprite)").AddComponent<Image>();
         sprite.sprite = Sprite.Create(icon, new (0, 0, icon.width, icon.height), Vector2.zero);
         sprite.transform.SetParent(parent);
+
+        if (editorIcon != null)
+        {
+            sprite.rectTransform.anchorMin = editorIcon.rectTransform.anchorMin;
+            sprite.rectTransform.anchorMax = editorIcon.rectTransform.anchorMax;
+        }
+
         sprite.transform.localScale    = Vector3.one;
-        sprite.transform.localPosition = Vector3.zero;
-        sprite.rectTransform.sizeDelta = new (100, 100);
+        sprite.transform.localPosition = position  == default ? Vector3.zero : position.localPosition;
+        sprite.rectTransform.sizeDelta = sizeDelta == default ? new (100, 100) : sizeDelta;
+
+        // Delete the Editor sprite after initializing the new sprite.
+        Destroy(editorIcon?.gameObject);
 
         return sprite;
     }

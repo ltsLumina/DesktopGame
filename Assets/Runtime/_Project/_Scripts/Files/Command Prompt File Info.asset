@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dd0a343578f4ce09d8f0937ccee0cfe, type: 3}
-  m_Name: Command Prompt Info
+  m_Name: Command Prompt File Info
   m_EditorClassIdentifier: 
   name: Command Prompt
   extension: .exe
+  icon: {fileID: 2800000, guid: 3385339bec7a3624fbe517c8e083a41b, type: 3}
   description: Opens the command prompt (cmd), allowing the user to input commands.
   path: C:\WINDOWS\system32\cmd
   size: 1
   dateCreated: 2024-04-20 14:29:23
   dateModified: 2024-04-20 14:29:23
   dateAccessed: 2024-04-20 14:29:23
-  icon: {fileID: 2800000, guid: 33b7f94e6ee936e4c80780df4f9f4979, type: 3}

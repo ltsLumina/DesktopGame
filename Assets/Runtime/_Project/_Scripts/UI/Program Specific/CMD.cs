@@ -1,4 +1,5 @@
 #region
+using System.IO;
 using TMPro;
 using UnityEngine;
 #endregion
@@ -24,37 +25,31 @@ public class CMD : Window
         // Debug log when the input field is completed
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            commands.Execute(inputField.text);
+            commands.Execute(new (inputField.text));
 
             inputField.text = string.Empty;
         }
     }
 
+    /// <summary>
+    ///     Outputs the directory tree of the project to the command prompt window.
+    ///     <seealso cref="Window" />
+    /// </summary>
     public void Tree()
     {
-        // print the tree structure
-        const string tree = @"
-        ├── Assets
-        │   ├── _Project
-        │   │   ├── _Prefabs
-        │   │   │   ├── Entry.prefab
-        │   │   │   └── File.prefab
-        │   │   ├── _Resources
-        │   │   │   ├── Entry.prefab
-        │   │   │   └── File.prefab
-        │   │   └── _Scripts
-        │   │       ├── UI
-        │   │       │   ├── Entry.cs
-        │   │       │   ├── File.cs
-        │   │       │   └── Taskbar.cs
-        │   │       └── Window.cs
-        │   └── _Scenes
-        │       ├── MainScene.unity
-        │       └── OtherScene.unity
-        └── ProjectSettings
-            ├── AudioManager.asset
-            └── ClusterInputManager.asset";
+        var directory = new DirectoryInfo(Application.dataPath);
 
-        output.text = tree;
+        output.text = CreateDirectoryTree(directory);
+
+        return;
+
+        string CreateDirectoryTree(DirectoryInfo directory, string indent = "")
+        {
+            string tree = indent + "├── " + directory.Name + "\n";
+
+            foreach (DirectoryInfo subdirectory in directory.GetDirectories()) { tree += CreateDirectoryTree(subdirectory, indent + "│   "); }
+
+            return tree;
+        }
     }
 }

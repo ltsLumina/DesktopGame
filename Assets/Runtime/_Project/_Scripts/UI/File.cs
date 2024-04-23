@@ -1,6 +1,5 @@
 #region
 using System.Collections;
-using System.Linq;
 using Lumina.Essentials.Attributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +16,7 @@ public abstract class File
     [SerializeField] Vector2 initialPosition;
 
     [Header("File Information")]
+    [SerializeField] protected Window.Windows windowType;
     [SerializeField] [ReadOnly] Window window;
     [SerializeField] FileInfo fileInfo;
 
@@ -64,7 +64,7 @@ public abstract class File
     public Window Window
     {
         get => window;
-        protected set => window = value;
+        private set => window = value;
     }
 
     // -- End --  \\
@@ -83,19 +83,11 @@ public abstract class File
 
     IEnumerator Start()
     {
-        // The icon that is used in the editor. The actual icon is created at runtime.
-        Image editorIcon = GetComponentsInChildren<Image>().FirstOrDefault(i => i.CompareTag("Editor"));
-        Destroy(editorIcon?.gameObject);
-
-        // Create the sprite for the object
-        image = fileInfo.CreateSprite(transform);
+        this.Initialize(out image);
 
         // Disable the onHover and onSelected images
         onHover.enabled    = false;
         onSelected.enabled = false;
-
-        // Set the name
-        name = $"{fileInfo.name} (File)";
 
         // -- Initialization
 
@@ -147,7 +139,7 @@ public abstract class File
         }
 
         // If the window does not exist, create it
-        Window = Window.Create<Window>(file, "Window");
+        Window = Window.Create<Window>(file, windowType);
     }
 
     public virtual void OnPointerClick(PointerEventData pointerData)

@@ -203,7 +203,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 1
+  m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -220,7 +220,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -246,9 +246,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1864995756}
-  - {fileID: 285394749}
   - {fileID: 732419798}
   - {fileID: 324010815}
+  - {fileID: 285394749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -381,7 +381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 40.238983}
+  m_AnchoredPosition: {x: 0, y: 40.23828}
   m_SizeDelta: {x: 10, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285394750
@@ -690,7 +690,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 0
+  m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
@@ -1194,8 +1194,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417807599}
-  - component: {fileID: 1417807600}
   - component: {fileID: 1417807601}
+  - component: {fileID: 1417807600}
   m_Layer: 5
   m_Name: File
   m_TagString: Untagged
@@ -1244,7 +1244,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
     m_HighlightedColor: {r: 1, g: 0.52006495, b: 0, a: 1}
@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPosition: {x: 5, y: 5}
+  windowType: 0
   window: {fileID: 0}
   fileInfo: {fileID: 11400000, guid: 764bf850fc70cab489226612a38caa51, type: 2}
   onHover: {fileID: 243823495}
@@ -1406,8 +1407,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965577997}
-  - component: {fileID: 1965577999}
   - component: {fileID: 1965577998}
+  - component: {fileID: 1965577999}
   m_Layer: 5
   m_Name: File 2
   m_TagString: Untagged
@@ -1450,6 +1451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPosition: {x: 6, y: 6}
+  windowType: 0
   window: {fileID: 0}
   fileInfo: {fileID: 11400000, guid: 764bf850fc70cab489226612a38caa51, type: 2}
   onHover: {fileID: 1675986078}
@@ -1475,7 +1477,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 0.033018887, b: 0.033018887, a: 1}
     m_HighlightedColor: {r: 1, g: 0.52006495, b: 0, a: 1}

@@ -1,6 +1,5 @@
 #region
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 #endregion
 
@@ -10,7 +9,7 @@ public class Taskbar : MonoBehaviour
 
     Transform itemsParent;
 
-    static List<File> s_items = new ();
+    readonly static List<File> s_items = new (9);
 
     public List<File> Items
     {
@@ -49,14 +48,7 @@ public class Taskbar : MonoBehaviour
         // Create new taskbar entry.
         var entry = Resources.Load<Entry>("PREFABS/Entry");
 
-        entry      = Instantiate(entry, itemsParent);
-        entry.File = file;
-        entry.name = $"{file.FileInfo.name} (Entry)";
-
-        entry.GetComponentInChildren<TextMeshProUGUI>().text = s_items.Count.ToString();
-
-        // Set the parent of the entry to the taskbar.
-        entry.transform.SetParent(itemsParent);
+        entry.Initialize(file, itemsParent);
     }
 
     void RemoveFromTaskbar(File file)
@@ -75,6 +67,11 @@ public class Taskbar : MonoBehaviour
         foreach (File item in items) { item.transform.SetParent(transform); }
     }
 
+    /// <summary>
+    ///     Adds a file to the taskbar.
+    ///     Won't add the file if it already exists in the taskbar.
+    /// </summary>
+    /// <param name="file"></param>
     public static void AddItem(File file)
     {
         if (s_items.Contains(file)) return;
