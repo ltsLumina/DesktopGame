@@ -60,6 +60,8 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
     RectTransform rect;
     Vector2 position;
     Vector2 pointerOffset;
+    
+    // this is a test commit for JetBrains Space
 
     readonly int widthHalf = Screen.width   / 2;
     readonly int heightHalf = Screen.height / 2;
