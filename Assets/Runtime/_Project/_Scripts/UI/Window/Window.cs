@@ -33,34 +33,30 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
 
     State state;
 
-    [SerializeField] [ReadOnly] File file;
+    [SerializeField, ReadOnly]  File file;
+    [Space(5), Header("Default Window Size"), SerializeField, Min(250)]
+      int width = 350;
+    [SerializeField, Min(150)]  int height = 250;
 
-    [Space(5)]
-    [Header("Default Window Size")]
-    [SerializeField] [Min(250)] int width = 350;
-    [SerializeField] [Min(150)] int height = 250;
+    [Space(5), Header("Window Specific"), Header("Header"), SerializeField]
+     protected Image header;
+    [ColorUsage(false), SerializeField]
+     protected Color headerColor;
 
-    [Space(5)]
-    [Header("Window Specific")]
-    [Header("Header")]
-    [SerializeField] protected Image header;
-    [ColorUsage(false)]
-    [SerializeField] protected Color headerColor;
+    [Header("Icon"), SerializeField]
+     Image icon;
 
-    [Header("Icon")]
-    [SerializeField] Image icon;
-
-    [Header("Title")]
-    [SerializeField] protected string title;
+    [Header("Title"), SerializeField]
+     protected string title;
     [SerializeField] protected TMP_Text titleText;
 
-    [Header("Background")]
-    [SerializeField] protected Image background;
+    [Header("Background"), SerializeField]
+     protected Image background;
 
     RectTransform rect;
     Vector2 position;
     Vector2 pointerOffset;
-    
+
     // this is a test commit for JetBrains Space
 
     readonly int widthHalf = Screen.width   / 2;
@@ -84,7 +80,7 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
     {
         rect = GetComponent<RectTransform>();
 
-        // Set the position to zero, zero on the canvas
+        // Set the position to (0, 0) on the canvas
         rect.SetAnchoredPosition(position);
 
         state = State.Default;
@@ -116,7 +112,7 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
 
         if (state == State.Default) Restore(true);
 
-        transform.SetAsLastSibling();
+        SetAsTopWindow();
     }
 
     public void Close()
@@ -162,7 +158,7 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
 
         transform.SetAsLastSibling(); // Last sibling is the top-most window
 
-        // Maximize the window
+        // Maximize the window (I don't remember why I used 154 and 115, but it works)
         this.Resize(rect, new (Screen.width - 154, Screen.height - 115), new (widthHalf, heightHalf + 20), () => { OnMaximize?.Invoke(); });
     }
 
@@ -202,16 +198,23 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
 
         return window;
 
+        // Sets the following properties of the window:
+        // - Name
+        // - Icon
+        // - Title
+        // - File
+        // - Parent
+        // Also sets the window as the top-most window.
         T Initialize()
         {
             var window = Resources.Load<T>($"PREFABS/Windows/{type.ToString()}");
-            window      = Instantiate(window, GameObject.FindWithTag("MainCanvas").transform, true);
+            window = Instantiate(window, GameObject.FindWithTag("MainCanvas").transform, true);
             window.name = window.Rename(file.FileInfo.name);
             window.transform.SetParent(GameObject.FindWithTag("Windows").transform);
-            window.transform.SetAsLastSibling();
-            window.icon           = file.FileInfo.CreateSprite(window.header.transform, window.icon.transform, new (10, 10));
+            window.transform.SetAsLastSibling(); // Note: window.SetAsTopWindow() does the same thing, but for the sake of clarity, I'm using SetAsLastSibling() here.
+            window.icon = file.FileInfo.CreateSprite(window.header.transform, window.icon.transform, new (10, 10));
             window.titleText.text = window.title;
-            window.file           = file;
+            window.file = file;
             return window;
         }
 
@@ -231,7 +234,8 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
                 string       hyperlink         = $"<a href=\"{windowScriptPath}\" line=\"{invalidLine}\">Click to navigate to the invalid enum.</a>";
 
                 string warning = $"The values of the \"{nameof(Windows)}\" enum are not valid. " + "\n" + $"The following enum values are not valid: {invalidEnumValues}" + "\n" +
-                                 $"Please ensure that the enum values match the prefab names, and that the prefabs are in the correct folder. ({correctFolder})" + "\n" + $"{hyperlink}";
+                                 $"Please ensure that the enum values match the prefab names, and that the prefabs are in the correct folder. ({correctFolder})" + "\n" +
+                                 $"{hyperlink}";
 
                 Logger.LogError(warning);
                 return false;
@@ -246,12 +250,12 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
             string   file  = files.FirstOrDefault(file => Path.GetFileNameWithoutExtension(file) == scriptName);
             return ConvertToUnityPath(file);
         }
-
+        
         static string ConvertToUnityPath(string fullPath)
         {
             string unityPath                = fullPath.Replace("\\", "/");
             int    assetsIndex              = unityPath.IndexOf("/Assets/", StringComparison.Ordinal);
-            if (assetsIndex >= 0) unityPath = unityPath.Substring(assetsIndex + 1);
+            if (assetsIndex >= 0) unityPath = unityPath[(assetsIndex + 1)..];
             return unityPath;
         }
 
@@ -275,7 +279,7 @@ public abstract class Window : MonoBehaviour, Interfaces.IWindow, IPointerClickH
     /// </summary>
     /// <param name="window"></param>
     /// <returns> The window. </returns>
-    public static bool GetWindow(Window window) => window.gameObject.activeSelf;
+    public static bool GetWindowActiveState(Window window) => window.gameObject.activeSelf;
 
     /// <summary>
     ///     Sets the window as the top-most window.

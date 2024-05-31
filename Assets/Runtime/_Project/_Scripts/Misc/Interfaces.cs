@@ -40,4 +40,9 @@ public abstract class Interfaces
 
         void Maximize();
     }
+    
+    public interface IPopUp
+    {
+        void Close();
+    }
 }

@@ -1,5 +1,7 @@
 #region
+using System.Collections;
 using System.IO;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 #endregion
@@ -11,6 +13,10 @@ public class CMD : Window
     [Header("References")]
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TextMeshProUGUI output;
+    [Tooltip("The 'Content' object of the scroll view.")]
+    [SerializeField] RectTransform scrollRect;
+
+    
 
     public override void Start()
     {
@@ -38,18 +44,22 @@ public class CMD : Window
     public void Tree()
     {
         var directory = new DirectoryInfo(Application.dataPath);
+        StartCoroutine(PrintDirectoryTree(directory));
+    }
 
-        output.text = CreateDirectoryTree(directory);
+    IEnumerator PrintDirectoryTree(DirectoryInfo directory, string indent = "")
+    {
+        output.text += indent + "├── " + directory.Name + "\n";
+        MoveScrollRect(scrollRect, output.text.Length);
+        yield return new WaitForSeconds(0.1f); // adjust the delay as needed
 
-        return;
+        foreach (DirectoryInfo subdirectory in directory.GetDirectories()) { yield return StartCoroutine(PrintDirectoryTree(subdirectory, indent + "│   ")); }
+    }
 
-        string CreateDirectoryTree(DirectoryInfo directory, string indent = "")
-        {
-            string tree = indent + "├── " + directory.Name + "\n";
-
-            foreach (DirectoryInfo subdirectory in directory.GetDirectories()) { tree += CreateDirectoryTree(subdirectory, indent + "│   "); }
-
-            return tree;
-        }
+    void MoveScrollRect(RectTransform rect, float targetPosition)
+    {
+        Vector2 target   = new Vector2(rect.position.x, targetPosition);
+        var     sequence = DOTween.Sequence();
+        sequence.Append(rect.DOMove(target, 0.5f).SetEase(Ease.OutBack));
     }
 }

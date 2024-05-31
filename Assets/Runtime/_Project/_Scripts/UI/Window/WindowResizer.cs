@@ -39,7 +39,7 @@ public static class WindowResizer
         {
             Sequence sequence = DOTween.Sequence();
             sequence.Append(rect.DOMove(newPosition, 0.5f).SetEase(Ease.OutBack));
-            sequence.Join(rect.DOSizeDelta(newSize, 0.5f).SetEase(Ease.OutBack));
+            sequence.Join(rect.DOSizeDelta(newSize, 0.5f).SetEase(Ease.OutQuart));
 
             yield return sequence.WaitForCompletion();
 

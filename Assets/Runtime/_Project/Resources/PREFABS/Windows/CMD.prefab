@@ -2802,6 +2802,7 @@ MonoBehaviour:
   commands: {fileID: 48001834296341769}
   inputField: {fileID: 837970658575596543}
   output: {fileID: 162409873613063559}
+  scrollRect: {fileID: 1951910837928705550}
 --- !u!114 &48001834296341769
 MonoBehaviour:
   m_ObjectHideFlags: 0

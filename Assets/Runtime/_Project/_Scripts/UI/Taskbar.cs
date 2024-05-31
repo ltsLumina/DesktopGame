@@ -9,6 +9,8 @@ public class Taskbar : MonoBehaviour
 
     Transform itemsParent;
 
+    // Maximum of 9 entries in the taskbar as that is the maximum amount of entries that fit on the screen.
+    // TODO: This doesn't necessarily serve a purpose, as there will only ever be a single instance of the Taskbar class.
     readonly static List<File> s_items = new (9);
 
     public List<File> Items
